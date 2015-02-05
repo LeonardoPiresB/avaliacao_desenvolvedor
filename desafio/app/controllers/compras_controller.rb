@@ -97,7 +97,7 @@ class ComprasController < ApplicationController
 		#logger.info r.to_s
 	end
 	logger.info "Arquivo carregado com Sucesso"
-	flash[:notice] = "Arquivo importado com Sucesso"
+	flash[:notice] = "Arquivo importado com Sucesso. \n#{contador} registros inseridos."
 	redirect_to root_url
   end
 
