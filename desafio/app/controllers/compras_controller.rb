@@ -32,7 +32,7 @@ class ComprasController < ApplicationController
 
     respond_to do |format|
       if @compra.save
-        format.html { redirect_to @compra, notice: 'Compra was successfully created.' }
+        format.html { redirect_to @compra, notice: "Compra ID #{@compra.id} foi criada com sucesso." }
         format.json { render :show, status: :created, location: @compra }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ComprasController < ApplicationController
   def update
     respond_to do |format|
       if @compra.update(compra_params)
-        format.html { redirect_to @compra, notice: 'Compra was successfully updated.' }
+        format.html { redirect_to @compra, notice: "Compra ID #{@compra.id } foi atualizada com sucesso." }
         format.json { render :show, status: :ok, location: @compra }
       else
         format.html { render :edit }
@@ -60,7 +60,7 @@ class ComprasController < ApplicationController
   def destroy
     @compra.destroy
     respond_to do |format|
-      format.html { redirect_to compras_url, notice: 'Compra was successfully destroyed.' }
+      format.html { redirect_to compras_url, notice: "Compra ID #{@compra.id} foi removida com sucesso." }
       format.json { head :no_content }
     end
   end
@@ -97,7 +97,7 @@ class ComprasController < ApplicationController
 		#logger.info r.to_s
 	end
 	logger.info "Arquivo carregado com Sucesso"
-	flash[:notice] = "<div class='notice'>Arquivo importado</div>"
+	flash[:notice] = "Arquivo importado com Sucesso"
 	redirect_to root_url
   end
 

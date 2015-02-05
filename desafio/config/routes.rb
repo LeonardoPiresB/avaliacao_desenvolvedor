@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   resources :compras
   root :to => redirect("/compras")
-  post 'upload' => 'compras#upload_file'
-  get 'arquivos' => 'upload#index'
-  post 'uploadFile' => 'upload#uploadFile'
+  post 'upload' => 'compras#upload_file'  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

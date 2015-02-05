@@ -1,6 +1,0 @@
-<h1>Upload de Arquivos</h1>
-<%= form_tag({controller: "upload", action: "uploadFile"}, multipart: true ) do %>
-<p><label for="upload_file">Select File</label> : 
-<%= file_field "upload", "datafile" %></p>
-<%= submit_tag "Carregar" %>
-<% end %>
