@@ -1,0 +1,54 @@
+<% if flash[:notice] %>
+	<%= flash[:notice] %>
+<% end %>
+<h1>Listando Compras</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Comprador</th>
+      <th>Descricao</th>
+      <th>Preco &Uacute;nico</th>
+      <th>Quantidade</th>
+      <th>Preco Total</th>
+      <th>Endereco</th>
+      <th>Fornecedor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @compras.each do |compra| %>
+      <tr>
+        <td><%= compra.comprador %></td>
+        <td><%= compra.descricao %></td>
+        <td><%= compra.preco %></td>
+        <td><%= compra.quantidade %></td>
+        <td><%= compra.quantidade * compra.preco %></td>
+        <td><%= compra.endereco %></td>
+        <td><%= compra.fornecedor %></td>
+        <td><%= link_to 'Abrir', compra %></td>
+        <td><%= link_to 'Editar', edit_compra_path(compra) %></td>
+        <td><%= link_to 'Excluir', compra, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
+      </tr>
+    <% end %>
+      <tr>
+        <td colspan="4" align="right"><b>Receita Bruta Total  </b></td>
+        <td><%= @receitabruta %></td>
+        <td colspan="5"></td>        
+      </tr>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Adicionar Compra', new_compra_path %>
+<br>
+OU
+<br>
+
+<%= form_tag({controller: "compras", action: "upload_file"}, multipart: true ) do %>
+<p><label for="upload_file">Carregue o Arquivo</label> : 
+<%= file_field "upload", "datafile" %></p>
+<%= submit_tag "Carregar" %>
+<% end %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  comprador: MyString
+  descricao: MyString
+  preco: 1.5
+  quantidade: 
+  endereco: MyString
+  fornecedor: MyString
+
+two:
+  comprador: MyString
+  descricao: MyString
+  preco: 1.5
+  quantidade: 
+  endereco: MyString
+  fornecedor: MyString
