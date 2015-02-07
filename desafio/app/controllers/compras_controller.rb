@@ -74,9 +74,7 @@ class ComprasController < ApplicationController
 	logger.info flash.inspect  
 	if arquivo.content_type != "text/plain"
 		logger.info "Arquivo '#{arquivo.original_filename}' não é um arquivo válido"
-		respond_to do |format|
-			format.html { redirect_to compras_url, alert: "Arquivo '#{arquivo.original_filename}' não é um arquivo válido. Somente Arquivos 'text/plain' são válidos." }
-		end		
+		flash[:error] = "Arquivo '#{arquivo.original_filename}' não é um arquivo válido. Somente Arquivos 'text/plain' são válidos."
 	else
 		# escreve o arquivo no local designado
 		File.open(caminho, "wb") do |f| 
@@ -101,11 +99,9 @@ class ComprasController < ApplicationController
 			
 		end		
 		logger.info "Arquivo '#{arquivo.original_filename}' carregado com Sucesso"		
-		respond_to do |format|
-			format.html { redirect_to compras_url, notice: "Arquivo '#{arquivo.original_filename}' importado com Sucesso.\n#{contador} registro(s) inserido(s)." }
-		end
+		flash[:notice] = "Arquivo '#{arquivo.original_filename}' importado com Sucesso.\n#{contador} registro(s) inserido(s)."
 	end
-	#redirect_to root_url	
+	redirect_to root_url	
   end
 
   private

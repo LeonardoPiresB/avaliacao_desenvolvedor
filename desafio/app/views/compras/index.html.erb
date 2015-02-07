@@ -1,8 +1,22 @@
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
 <h1>Listando Compras</h1>
-
-<table border="2">
+<style>
+th, td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid black;
+}
+table#tipo1 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#tipo1 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#tipo1 th	{
+    background-color: black;
+    color: white;
+}
+</style>
+<table id="tipo1" style="width:100%">
   <thead>
     <tr>
       <th>Comprador</th>
@@ -21,9 +35,9 @@
       <tr>
         <td><%= compra.comprador %></td>
         <td><%= compra.descricao %></td>
-        <td><%= compra.preco %></td>
+        <td>R$ <%= compra.preco %></td>
         <td><%= compra.quantidade %></td>
-        <td><%= compra.quantidade * compra.preco %></td>
+        <td>R$ <%= compra.quantidade * compra.preco %></td>
         <td><%= compra.endereco %></td>
         <td><%= compra.fornecedor %></td>
         <td><%= link_to 'Abrir', compra %></td>
@@ -34,7 +48,7 @@
     <% if !@compras.empty? %>
       <tr>
         <td colspan="4" align="right"><b>Receita Bruta Total  </b></td>
-        <td><%= @receitabruta %></td>
+        <td>R$ <%= @receitabruta %></td>
         <td colspan="5"></td>        
       </tr>
     <% end %>
