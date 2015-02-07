@@ -16,11 +16,11 @@
     <%= f.text_field :comprador %>
   </div>
   <div class="field">
-    <%= f.label :descricao %><br>
+    <%= label_tag 'Descrição' %><br>
     <%= f.text_field :descricao %>
   </div>
   <div class="field">
-    <%= f.label :preco %><br>
+    <%= label_tag 'Preço' %><br>
     <%= f.text_field :preco %>
   </div>
   <div class="field">
@@ -28,7 +28,7 @@
     <%= f.text_field :quantidade %>
   </div>
   <div class="field">
-    <%= f.label :endereco %><br>
+    <%= label_tag 'Endereço' %><br>
     <%= f.text_field :endereco %>
   </div>
   <div class="field">
@@ -36,6 +36,6 @@
     <%= f.text_field :fornecedor %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Salvar' %>
   </div>
 <% end %>

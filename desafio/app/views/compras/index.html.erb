@@ -1,9 +1,8 @@
-<% if flash[:notice] %>
-	<h5><%= flash[:notice] %></h5>
-<% end %>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 <h1>Listando Compras</h1>
 
-<table border="1">
+<table border="2">
   <thead>
     <tr>
       <th>Comprador</th>
@@ -32,11 +31,13 @@
         <td><%= link_to 'Excluir', compra, method: :delete, data: { confirm: 'Tem Certeza?' } %></td>
       </tr>
     <% end %>
+    <% if !@compras.empty? %>
       <tr>
         <td colspan="4" align="right"><b>Receita Bruta Total  </b></td>
         <td><%= @receitabruta %></td>
         <td colspan="5"></td>        
       </tr>
+    <% end %>
   </tbody>
 </table>
 

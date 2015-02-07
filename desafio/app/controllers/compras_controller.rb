@@ -70,35 +70,42 @@ class ComprasController < ApplicationController
 	arquivo = params[:upload][:datafile] rescue nil
 	caminho = File.join(Rails.root, 
 	  "public/data", arquivo.original_filename)
-
-	# escreve o arquivo no local designado
-	File.open(caminho, "wb") do |f| 
-	  f.write(arquivo.read)	  
-	end
-	leitura = File.open(caminho, "a+")
-	registros = Array.new
-	contador = 0	
-	leitura.each_line do |linha|
-		contador+=1
-		next if (contador == 1)
-		r = linha.match(/^(?<comprador>[^\t]+)\t(?<desc>[^\t]+)\t(?<preco>[^\t]+)\t(?<qtde>[^\t]+)\t(?<endereco>[^\t]+)\t(?<fornecedor>[^\t]+)$/)
-		#registros.push r
-		if r
-			compra = Compra.new
-			compra.comprador = r['comprador']
-			compra.descricao = r['desc']
-			compra.preco     = r['preco'].to_f
-			compra.quantidade= r['qtde'].to_i
-			compra.endereco  = r['endereco']
-			compra.fornecedor= r['fornecedor']
-			compra.save			
+	logger.info arquivo.inspect
+	logger.info flash.inspect  
+	if arquivo.content_type != "text/plain"
+		logger.info "Arquivo '#{arquivo.original_filename}' não é um arquivo válido"
+		respond_to do |format|
+			format.html { redirect_to compras_url, alert: "Arquivo '#{arquivo.original_filename}' não é um arquivo válido. Somente Arquivos 'text/plain' são válidos." }
+		end		
+	else
+		# escreve o arquivo no local designado
+		File.open(caminho, "wb") do |f| 
+		  f.write(arquivo.read)	  
 		end
-		
-		#logger.info r.to_s
+		leitura = File.open(caminho, "a+")	
+		contador = 0	
+		leitura.each_line do |linha|
+			contador+=1
+			next if (contador == 1)
+			r = linha.match(/^(?<comprador>[^\t]+)\t(?<desc>[^\t]+)\t(?<preco>[^\t]+)\t(?<qtde>[^\t]+)\t(?<endereco>[^\t]+)\t(?<fornecedor>[^\t]+)$/)		
+			if r
+				compra = Compra.new
+				compra.comprador = r['comprador']
+				compra.descricao = r['desc']
+				compra.preco     = r['preco'].to_f
+				compra.quantidade= r['qtde'].to_i
+				compra.endereco  = r['endereco']
+				compra.fornecedor= r['fornecedor']
+				compra.save			
+			end
+			
+		end		
+		logger.info "Arquivo '#{arquivo.original_filename}' carregado com Sucesso"		
+		respond_to do |format|
+			format.html { redirect_to compras_url, notice: "Arquivo '#{arquivo.original_filename}' importado com Sucesso.\n#{contador} registro(s) inserido(s)." }
+		end
 	end
-	logger.info "Arquivo carregado com Sucesso"
-	flash[:notice] = "Arquivo importado com Sucesso. \n#{contador} registros inseridos."
-	redirect_to root_url
+	#redirect_to root_url	
   end
 
   private
