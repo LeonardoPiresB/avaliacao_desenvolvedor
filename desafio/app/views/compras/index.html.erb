@@ -1,21 +1,4 @@
 <h1>Listando Compras</h1>
-<style>
-th, td {
-    padding: 5px;
-    text-align: left;
-    border: 1px solid black;
-}
-table#tipo1 tr:nth-child(even) {
-    background-color: #eee;
-}
-table#tipo1 tr:nth-child(odd) {
-   background-color:#fff;
-}
-table#tipo1 th	{
-    background-color: black;
-    color: white;
-}
-</style>
 <table id="tipo1" style="width:100%">
   <thead>
     <tr>
@@ -47,7 +30,7 @@ table#tipo1 th	{
     <% end %>
     <% if !@compras.empty? %>
       <tr>
-        <td colspan="4" align="right"><b>Receita Bruta Total  </b></td>
+        <td colspan="4" align="right"><b>Receita Bruta Total</b></td>
         <td>R$ <%= @receitabruta %></td>
         <td colspan="5"></td>        
       </tr>

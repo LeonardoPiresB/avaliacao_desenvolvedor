@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ComprasControllerTest < ActionController::TestCase
   setup do
-    @compra = compras(:one)
+    @compra = compras(:primeiro)
   end
 
   test "should get index" do

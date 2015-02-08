@@ -68,38 +68,42 @@ class ComprasController < ApplicationController
   def upload_file	
 	# cria o caminho físico do arquivo
 	arquivo = params[:upload][:datafile] rescue nil
-	caminho = File.join(Rails.root, 
-	  "public/data", arquivo.original_filename)
-	logger.info arquivo.inspect
-	logger.info flash.inspect  
-	if arquivo.content_type != "text/plain"
-		logger.info "Arquivo '#{arquivo.original_filename}' não é um arquivo válido"
-		flash[:error] = "Arquivo '#{arquivo.original_filename}' não é um arquivo válido. Somente Arquivos 'text/plain' são válidos."
-	else
-		# escreve o arquivo no local designado
-		File.open(caminho, "wb") do |f| 
-		  f.write(arquivo.read)	  
-		end
-		leitura = File.open(caminho, "a+")	
-		contador = 0	
-		leitura.each_line do |linha|
-			contador+=1
-			next if (contador == 1)
-			r = linha.match(/^(?<comprador>[^\t]+)\t(?<desc>[^\t]+)\t(?<preco>[^\t]+)\t(?<qtde>[^\t]+)\t(?<endereco>[^\t]+)\t(?<fornecedor>[^\t]+)$/)		
-			if r
-				compra = Compra.new
-				compra.comprador = r['comprador']
-				compra.descricao = r['desc']
-				compra.preco     = r['preco'].to_f
-				compra.quantidade= r['qtde'].to_i
-				compra.endereco  = r['endereco']
-				compra.fornecedor= r['fornecedor']
-				compra.save			
+	if arquivo
+		caminho = File.join(Rails.root, "public/data", arquivo.original_filename)
+		logger.info arquivo.inspect
+		logger.info flash.inspect  
+		if arquivo.content_type != "text/plain"
+			logger.info "Arquivo '#{arquivo.original_filename}' não é um arquivo válido"
+			flash[:error] = "Arquivo '#{arquivo.original_filename}' não é um arquivo válido. Somente Arquivos 'text/plain' são válidos."
+		else
+			# escreve o arquivo no local designado
+			File.open(caminho, "wb") do |f| 
+			  f.write(arquivo.read)	  
 			end
-			
-		end		
-		logger.info "Arquivo '#{arquivo.original_filename}' carregado com Sucesso"		
-		flash[:notice] = "Arquivo '#{arquivo.original_filename}' importado com Sucesso.\n#{contador} registro(s) inserido(s)."
+			leitura = File.open(caminho, "a+")	
+			contador = 0	
+			leitura.each_line do |linha|
+				contador+=1
+				next if (contador == 1)
+				r = linha.match(/^(?<comprador>[^\t]+)\t(?<desc>[^\t]+)\t(?<preco>[^\t]+)\t(?<qtde>[^\t]+)\t(?<endereco>[^\t]+)\t(?<fornecedor>[^\t]+)$/)		
+				if r
+					compra = Compra.new
+					compra.comprador = r['comprador']
+					compra.descricao = r['desc']
+					compra.preco     = r['preco'].to_f
+					compra.quantidade= r['qtde'].to_i
+					compra.endereco  = r['endereco']
+					compra.fornecedor= r['fornecedor']
+					compra.save			
+				end
+				
+			end		
+			logger.info "Arquivo '#{arquivo.original_filename}' carregado com Sucesso"		
+			flash[:notice] = "Arquivo '#{arquivo.original_filename}' importado com Sucesso.\n#{contador} registro(s) inserido(s)."
+		end
+	else
+		logger.info "Nenhum arquivo foi carregado"
+		flash[:warning] = "Nenhum arquivo foi carregado"
 	end
 	redirect_to root_url	
   end

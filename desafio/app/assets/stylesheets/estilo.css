@@ -1,0 +1,31 @@
+th, td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid black;
+}
+table#tipo1 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#tipo1 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#tipo1 th	{
+    background-color: black;
+    color: white;
+}
+
+.info {
+	color: #000066;
+}
+
+.error {
+	color: red;
+}
+
+.warning {
+	color: #8B008B;
+}
+
+.notice {
+	color: green;
+}

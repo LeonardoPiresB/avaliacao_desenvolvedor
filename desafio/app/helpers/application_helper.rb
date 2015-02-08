@@ -1,12 +1,11 @@
 module ApplicationHelper
 	def flash_message
-		messages = ""
-		[:notice, :info, :warning, :error].each {|type|
+		messages = Hash.new
+		[:notice, :info, :warning, :error].each do |type|
 		  if flash[type]
-			messages += "<p class=\"#{type}\">#{flash[type]}</p>"
+			messages.store(type, flash[type])
 		  end
-		}
-
+		end
 		return messages
 	end
 end

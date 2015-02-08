@@ -9,7 +9,9 @@
 </head>
 <body>
 	<div class="container">
-		<%= flash_message %>		
+		<% flash_message.each do |type,msg| %>
+			<h4 id="mainflashmessage" class="<%= type %>"><%= msg%></h4>
+		<% end %>
 		<%= yield %>
 	</div>
 </body>
